@@ -34,24 +34,51 @@ Ensure you have the following installed:
 ---
 
 ## 🚀 Installation
-1. Clone the repository:
+### Step 1: Clone the repository
    ```bash
    git clone https://github.com/noraphat/icon-text-extractor.git
    cd icon-text-extractor
    ```
 
-2. Install the required dependencies:
+### Step 2: Install the required dependencies
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Ensure Tesseract OCR is installed on your system:
+### Step 3: Install Tesseract OCR
+#### macOS:
+   ```bash
+   brew install tesseract
+   ```
+#### Mac:
+1. Ensure Tesseract OCR is installed on your system:
    - For macOS:
      ```bash
      brew install tesseract
      ```
+2. Verify installation:
+   ```bash
+   tesseract --version
+   ```
+#### Windows:
+1. Download Tesseract OCR from [Tesseract OCR Windows Installer](https://github.com/UB-Mannheim/tesseract/wiki).
+2. Install Tesseract in a directory like `C:\Program Files\Tesseract-OCR`.
+3. Add the Tesseract installation directory to your **System PATH**:
+   - Open **Environment Variables**.
+   - Under **System Variables**, find `Path` and click **Edit**.
+   - Add the directory: `C:\Program Files\Tesseract-OCR`.
+4. Verify installation:
+   ```bash
+   tesseract --version
+   ```
 
-4. Run the application:
+5. Configure `pytesseract` in the script:
+   Add this line to your Python script before using `pytesseract`:
+   ```python
+   pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+   ```
+
+### Step 4: Run the application
    ```bash
    python icon_text_extractor.py
    ```
