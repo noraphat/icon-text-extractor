@@ -165,17 +165,20 @@ class IconTextExtractorApp(QMainWindow):
             pixmap = QPixmap(icon_path).scaled(100, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation)
             thumbnail_label.setPixmap(pixmap)
 
-            close_button = QPushButton("✖")
-            close_button.setFixedSize(20, 20)
-            close_button.clicked.connect(lambda _, path=icon_path, widget=thumbnail_widget: self.remove_icon(path, widget))
-
+            button_layout = QHBoxLayout()
             move_button = QPushButton("Move")
             move_button.setFixedSize(50, 20)
             move_button.clicked.connect(lambda _, path=icon_path: self.move_icon(path))
 
+            close_button = QPushButton("✖")
+            close_button.setFixedSize(20, 20)
+            close_button.clicked.connect(lambda _, path=icon_path, widget=thumbnail_widget: self.remove_icon(path, widget))
+
+            button_layout.addWidget(move_button)
+            button_layout.addWidget(close_button)
+
             thumbnail_layout.addWidget(thumbnail_label)
-            thumbnail_layout.addWidget(close_button, alignment=Qt.AlignCenter)
-            thumbnail_layout.addWidget(move_button, alignment=Qt.AlignCenter)
+            thumbnail_layout.addLayout(button_layout)
 
             self.thumbnail_layout.addWidget(thumbnail_widget)
 
