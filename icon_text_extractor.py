@@ -87,10 +87,16 @@ class IconTextExtractorApp(QMainWindow):
         # Threshold to detect shapes
         _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
 
-        # Extract Text using Tesseract OCR with Layout Analysis
-        custom_config = r'--oem 3 --psm 4'
+
+        # Extract Text using Tesseract OCR with Thai and English language support
+        custom_config = r'--oem 3 --psm 4 -l tha+eng'
         extracted_text = pytesseract.image_to_string(img, config=custom_config)
         print("Extracted Text:\n", extracted_text)
+
+        # Cleaning the text (optional)
+        def clean_text(text):
+            return ''.join(char for char in text if char.isalnum() or char.isspace())
+        extracted_text = clean_text(extracted_text)
 
         # Find contours for icons
         contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
